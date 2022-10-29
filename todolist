@@ -1,0 +1,28 @@
+- Ajouter des excpetion quand besoin
+
+Creer un moteur graphique de carte hexagonal
+	- Rendu visuel à partir d'une instance simple
+	- Animation possible sur la case et de la case
+		- Animation d'arrivée de la case
+		- Animation de tremblement de la case
+		- Pas d'animation sur les cases montagne
+		- Animation d'herbe sur les cases plaines
+	- Deplacement camera
+Creer des evenements systemique de la carte
+	- Ajout de caracteristiques au case
+		- temperature
+		- humidité
+		- hauteur
+	- Ajout de biome
+		- Doivent respecter certaines caracteristique pour exister
+		- Verifier les possiblités d'existence entre model (biome)
+		- Modifient l'etat des cases voisines a chaque tick
+	- Ecoulement de rivière + creation de mer
+Creer un generateur de map (montagne, riviere, foret, plaine, desert)
+	- associer des cases a un biome voulu
+	- modifier la hauteur cas par cas
+Creer un generateur de ville (nom, emplacement, taille, ...)
+Creer un outil de modification de case (hauteur de la case), evenement systemique associé
+Creer un outil d'ajout de batiment, puis ville
+
+Creer des mecaniques de jeu, voir open ttd
