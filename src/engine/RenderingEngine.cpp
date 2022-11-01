@@ -67,7 +67,7 @@ bool RenderingEngine::checkEvents(){
 			if(event.type == sf::Event::MouseMoved){
 				sf::Vector2i mousePosition = sf::Mouse::getPosition(this->window);
 
-				this->view.move(mousePosition.x - event.mouseMove.x, mousePosition.y - event.mouseMove.y);
+				this->view.move(-1*(mousePosition.x - event.mouseMove.x), -1*(mousePosition.y - event.mouseMove.y));
 				this->window.setView(this->view);
 			}
 		}else if(event.type == sf::Event::MouseWheelScrolled){
