@@ -6,7 +6,7 @@
 class GameEngine{
 	private:
 		private:
-		Map map;
+		Map& map;
 
 		unsigned int ticksBeforeEachUpdate;
 		unsigned int ticksBeforeLastUpdate;
@@ -17,6 +17,7 @@ class GameEngine{
 
 	private:
 		bool update();
+		void initMap();
 };
 
 #endif

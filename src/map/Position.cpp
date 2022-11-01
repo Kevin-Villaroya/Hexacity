@@ -1,11 +1,29 @@
 #include "Position.h"
+#include <iostream>
 
-Position::Position(unsigned int x, unsigned int y) : x(x), y(y) {}
-		
-unsigned int Position::getX() const{
+Position::Position() : Position(0, 0) {}
+
+Position::Position(int x, int y) : x(x), y(y) {}
+
+int Position::getX() const{
 	return this->x;
 }
 
-unsigned int Position::getY() const{
+int Position::getY() const{
 	return this->y;
+}
+
+void Position::setX(int x){
+	this->x = x;
+}
+
+void Position::setY(int y){
+	this->y = y;
+}
+
+Position& Position::operator =(const Position& position){
+	this->x = position.getX();
+	this->y = position.getY();
+
+	return *this;
 }

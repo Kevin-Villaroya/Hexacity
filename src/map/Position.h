@@ -4,13 +4,19 @@
 class Position{
 	
 	private:
-		unsigned int x;
-		unsigned int y;
+		int x;
+		int y;
 	public:
-		Position(unsigned int x, unsigned int y);
+		Position();
+		Position(int x, int y);
 		
-		unsigned int getX() const;
-		unsigned int getY() const;
+		int getX() const;
+		int getY() const;
+
+		void setX(int x);
+		void setY(int y);
+
+		Position& operator =(const Position& position);
 };
 
 #endif

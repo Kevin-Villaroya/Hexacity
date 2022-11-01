@@ -1,5 +1,5 @@
-CFLAG = -g -Wall -ansi -pedantic -std=c++17
-CLIB = 
+CFLAG = -g -Wall -ansi -pedantic -std=c++17 -ggdb
+CLIB = -lsfml-graphics -lsfml-window -lsfml-system
 
 CC = g++
 TARGET_EXEC := hexacity

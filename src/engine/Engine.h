@@ -8,8 +8,8 @@
 class Engine{
 	private:
 		Map& map;
-		RenderingEngine renderingEngine;
 		GameEngine gameEngine;
+		RenderingEngine renderingEngine;
 
 		bool running;
 	public:
