@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "../../tool/TextureToolAnimation.h"
 #include <iostream>
 
 Block::Block(unsigned int height) : Block(height, 0) {}
@@ -12,8 +13,8 @@ Block::Block(unsigned int height, unsigned int temperature, unsigned int humidit
   temperature(temperature), 
   humidity(humidity), 
   animationBlock(this->position), 
-  animationTexture(AnimatedTexture::block), 
-  sprite(animationTexture->getTexture()) 
+  animationTexture(TextureToolAnimation::block), 
+  sprite(animationTexture.getTexture())
 {}
 
 void Block::animate(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration){
@@ -24,6 +25,8 @@ void Block::animate(sf::Vector2<float> positionStart, std::function<void(sf::Vec
 
 void Block::update(){
   this->animationBlock.update();
+  this->animationTexture.update();
+  this->sprite.setTexture(this->animationTexture.getTexture());
 }
 
 unsigned int Block::getHeight() const{
@@ -66,6 +69,6 @@ void Block::setPosition(int x, int y){
   this->position = sf::Vector2<float>(x, y);
 }
 
-SpriteTool& Block::getSprite(){  
+SpriteTool& Block::getSprite(){
   return this->sprite;
 }

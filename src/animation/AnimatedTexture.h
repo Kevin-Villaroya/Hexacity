@@ -3,23 +3,23 @@
 
 #include "./Animation.h"
 #include "../../tool/TextureTool.h"
+#include "../tool/TextureToolAnimation.h"
 
 class AnimatedTexture : public Animation{
-  public:
-    static const AnimatedTexture block;
-    static const AnimatedTexture plain;
-    static const AnimatedTexture water;
-
   private:
-    std::vector<TextureTool> textures;
+    const TextureToolAnimation& textures;
 
-    AnimatedTexture(std::string path);
+    uint currentTexture;
+    bool forward;
 
   public:
-    virtual void play();
-    virtual void update();
+    AnimatedTexture(const TextureToolAnimation& textures);
 
-    const sf::Texture& getTexture() const;
+    void play();
+    void update();
+
+    const TextureTool& getTexture() const;
 };
 
 #endif
+

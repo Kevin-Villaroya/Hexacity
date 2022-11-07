@@ -10,7 +10,7 @@ class TextureTool : public sf::Texture{
 
 public:
   TextureTool();
-  TextureTool(std::string locationAsset);
+  TextureTool(const std::string& locationAsset);
 };
 
 #endif

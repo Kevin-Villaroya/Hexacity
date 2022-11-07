@@ -6,8 +6,6 @@
 #include "../../animation/AnimatedTexture.h"
 #include "../../animation/AnimationBlock.h"
 
-#include <memory>
-
 class Block{
   private:
     sf::Vector2<float> position;
@@ -17,7 +15,7 @@ class Block{
     unsigned int humidity;
 
     AnimationBlock animationBlock;
-    std::shared_ptr<AnimatedTexture> animationTexture;
+    AnimatedTexture animationTexture;
 
     SpriteTool sprite;
 
