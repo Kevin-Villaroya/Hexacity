@@ -1,26 +1,38 @@
 #include "AnimatedTexture.h"
 #include <iostream>
 
-AnimatedTexture::AnimatedTexture(const TextureToolAnimation& textures) : textures(textures), currentTexture(0), forward(true) {}
+AnimatedTexture::AnimatedTexture(const TextureToolAnimation& textures, uint framesDuration) : 
+    textures(textures), 
+    currentTexture(0), 
+    forward(true), 
+    framesDuration(framesDuration), 
+    framesWaited(0) 
+{}
 
 void AnimatedTexture::play(){
     this->running = true;
 }
 
 void AnimatedTexture::update(){
-    switch(this->forward){
-        case true:
-            this->currentTexture++;
-            break;
-        default:
-            this->currentTexture--;
-            break;
-    }
+    if(framesWaited == framesDuration){
+        framesWaited = 0;
 
-    if(this->currentTexture == 0){
-        this->forward = true;
-    }else if(this->currentTexture == this->textures.getSize() - 1){
-        this->forward = false;
+        switch(this->forward){
+            case true:
+                this->currentTexture++;
+                break;
+            default:
+                this->currentTexture--;
+                break;
+        }
+
+        if(this->currentTexture == 0){
+            this->forward = true;
+        }else if(this->currentTexture == this->textures.getSize() - 1){
+            this->forward = false;
+        }
+    }else{
+        framesWaited++;
     }
 }
 

@@ -51,7 +51,7 @@ void RenderingEngine::entranceAnimation(){
 			int blockOffset = fmin(block.getPosition().x - block.getPosition().y, -block.getPosition().x + block.getPosition().y);
 			int offset = globalOffset + blockOffset;
 
-			block.animate(sf::Vector2<float>(block.getPosition().x + offset, block.getPosition().y + offset), animation, framesDuration);
+			block.animateBlock(sf::Vector2<float>(block.getPosition().x + offset, block.getPosition().y + offset), animation, framesDuration);
 		}
 	}
 }

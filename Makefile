@@ -22,7 +22,7 @@ $(TARGET_EXEC): $(OBJS)
 	@echo $(TARGET_EXEC) compilation termined
 
 # c++ source
-$(BUILD_DIR)/%.cpp.o: %.cpp %.h
+$(BUILD_DIR)/%.cpp.o: %.cpp
 	@$(MKDIR_P) $(dir $@)
 	@$(CC) $(CPPFLAGS) $(CFLAG) $(CPPFLAGS) -c $< -o $@ $(CLIB)
 	@echo Compiling $(shell basename $<)

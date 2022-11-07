@@ -24,7 +24,7 @@ class Block{
     Block(unsigned int height, unsigned int temperature);
     Block(unsigned int height, unsigned int temperature, unsigned int humidity);
 
-    void animate(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration = 0);
+    void animateBlock(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration = 0);
 
     void update();
 

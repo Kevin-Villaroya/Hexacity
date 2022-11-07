@@ -13,11 +13,11 @@ Block::Block(unsigned int height, unsigned int temperature, unsigned int humidit
   temperature(temperature), 
   humidity(humidity), 
   animationBlock(this->position), 
-  animationTexture(TextureToolAnimation::block), 
+  animationTexture(TextureToolAnimation::block, 10), 
   sprite(animationTexture.getTexture())
 {}
 
-void Block::animate(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration){
+void Block::animateBlock(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration){
   this->animationBlock = AnimationBlock(animation, positionStart, this->position, framesDuration);
 
   this->animationBlock.play();

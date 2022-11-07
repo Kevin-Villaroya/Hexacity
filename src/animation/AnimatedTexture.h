@@ -12,8 +12,11 @@ class AnimatedTexture : public Animation{
     uint currentTexture;
     bool forward;
 
+    uint framesDuration;
+    uint framesWaited;
+
   public:
-    AnimatedTexture(const TextureToolAnimation& textures);
+    AnimatedTexture(const TextureToolAnimation& textures, uint framesDuration = 0);
 
     void play();
     void update();
