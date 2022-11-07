@@ -1,13 +1,20 @@
 #include "Block.h"
 #include <iostream>
 
-const TextureTool Block::block = TextureTool("./assets/block.png");
-
 Block::Block(unsigned int height) : Block(height, 0) {}
 
-Block::Block(unsigned int height, unsigned int temperature) : Block(height, temperature, 0) {}
+Block::Block(unsigned int height, unsigned int temperature) : 
+  Block(height, temperature, 0) 
+{}
 
-Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : height(height), temperature(temperature), humidity(humidity), sprite(Block::block), animationBlock(this->position) {}
+Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : 
+  height(height), 
+  temperature(temperature), 
+  humidity(humidity), 
+  animationBlock(this->position), 
+  animationTexture(AnimatedTexture::block), 
+  sprite(animationTexture->getTexture()) 
+{}
 
 void Block::animate(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration){
   this->animationBlock = AnimationBlock(animation, positionStart, this->position, framesDuration);

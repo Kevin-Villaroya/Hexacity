@@ -89,9 +89,7 @@ std::list<std::reference_wrapper<SpriteTool>> RenderingEngine::getMapDrawables()
 
 	for(unsigned int i = 0; i < this->map.getWidth() ; i++){
 		for(unsigned int j = 0; j < this->map.getHeight(); j++){
-			sf::Vector2<float> casePosition(i, j);
-
-			Block& currentCase = this->map.get(casePosition);
+			Block& currentCase = this->map.get(i, j);
 			SpriteTool& sprite = currentCase.getSprite();
 
 			this->setCaseSpritePosition(sprite, currentCase.getPosition(), currentCase.getHeight());
@@ -118,19 +116,19 @@ void RenderingEngine::setCaseSpritePosition(SpriteTool& sprite, const sf::Vector
 }
 
 sf::Vector2<float> RenderingEngine::convertMapPositionToWindowPosition(const sf::Vector2<float>& position){
-	sf::Vector2<float> windowPosition = this->transformEuclidianPositionToIsometric(position);
+	sf::Vector2<float> newPosition = this->transformEuclidianPositionToIsometric(position);
 
-	windowPosition.x = windowPosition.x * (this->map.get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().x / 2);
-	windowPosition.y = windowPosition.y * (this->map.get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().y / 4);
+	newPosition.x = newPosition.x * (this->map.get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().x / 2);
+	newPosition.y = newPosition.y * (this->map.get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().y / 4);
 
-	return windowPosition;
+	return newPosition;
 }
 
 sf::Vector2<float> RenderingEngine::transformEuclidianPositionToIsometric(const sf::Vector2<float>& position){
 	sf::Vector2<float> isometricPosition;
 
-	unsigned int x = position.x;
-	unsigned int y = position.y;
+	int x = position.x;
+	int y = position.y;
 
 	isometricPosition.x = x - y;
 	isometricPosition.y = x + y;

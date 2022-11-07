@@ -3,13 +3,12 @@
 
 #include "../biome/Biome.h"
 #include "../../tool/SpriteTool.h"
-#include "../../tool/TextureTool.h"
+#include "../../animation/AnimatedTexture.h"
 #include "../../animation/AnimationBlock.h"
 
-class Block{
-  public:
-    static const TextureTool block;
+#include <memory>
 
+class Block{
   private:
     sf::Vector2<float> position;
 
@@ -17,8 +16,10 @@ class Block{
     unsigned int temperature;
     unsigned int humidity;
 
-    SpriteTool sprite;
     AnimationBlock animationBlock;
+    std::shared_ptr<AnimatedTexture> animationTexture;
+
+    SpriteTool sprite;
 
   public:
     Block(unsigned int height = 0);
