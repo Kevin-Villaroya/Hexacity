@@ -6,9 +6,21 @@ GameEngine::GameEngine(Map& map, int ticksBeforeEachUpdate) : map(map), ticksBef
 }
 
 void GameEngine::initMap(){
-	for(unsigned int i = 0; i < this->map.getWidth(); i++){
-		for(unsigned int j = 0; j < this->map.getHeight(); j++){
-			this->map.get(Position(i, j)).getSprite().setPosition(i, j);
+	uint width = this->map.getWidth();
+	uint height = this->map.getHeight();
+
+	for(unsigned int i = 0; i < width; i++){
+		for(unsigned int j = 0; j < height; j++){
+			Block& currentCase = this->map.get(i, j);
+
+			if(i == 1 || j == 1 || i == width - 2 || j == height - 2){
+				currentCase.setHeight(1);
+			}
+
+			if(i == 0 || j == 0 || i == width - 1 || j == height - 1){
+				currentCase.setHeight(2);
+			}
+
 		}
 	}
 }
@@ -29,7 +41,7 @@ bool GameEngine::tick(){
 bool GameEngine::update(){
 	for(unsigned int i = 0; i < this->map.getWidth(); i++){
 		for(unsigned int j = 0; j < this->map.getHeight(); j++){
-			this->map.get(Position(i, j)).update();
+			this->map.get(sf::Vector2<float>(i, j)).update();
 		}
 	}
 

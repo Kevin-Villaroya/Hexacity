@@ -2,27 +2,27 @@
 #define __ANIMATION_BLOCK_H__
 
 #include "Animation.h"
-#include "../map/Position.h"
 #include <SFML/Graphics/Sprite.hpp>
+#include <functional>
 
 class AnimationBlock : public Animation{
     private:
-        std::function<void(Position&)> animation;
-        Position currentPosition;
-        Position endPosition;
+        std::function<void(sf::Vector2<float>&)> animation;
+        sf::Vector2<float> currentPosition;
+        sf::Vector2<float> endPosition;
 
         int framesDuration;
         int framesWaited;
 
     public:        
-        AnimationBlock(Position& position);
+        AnimationBlock(sf::Vector2<float>& position);
 
-        AnimationBlock(std::function<void(Position&)> animation, Position& positionStart, Position endPosition, int framesDuration);
+        AnimationBlock(std::function<void(sf::Vector2<float>&)> animation, sf::Vector2<float>& positionStart, sf::Vector2<float> positionEnd, int framesDuration);
 
         void play() override;
         void update() override;
 
-        const Position& getCurrentPosition() const;
+        const sf::Vector2<float>& getCurrentPosition() const;
 
         int getFramesDuration() const;
 };

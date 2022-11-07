@@ -7,8 +7,8 @@
 RenderingEngine::RenderingEngine(Map& map, unsigned int fps, unsigned int widthWindow, unsigned int heightWindow) : map(map), view(sf::Vector2f(0, 0), sf::Vector2f(map.getDrawableWidth(), map.getDrawableHeight())), window(sf::VideoMode(widthWindow, heightWindow), "Hexacity"){
 	this->window.setFramerateLimit(fps);
 
-    Position centerView = this->getCenterDrawableMap();
-	this->view.setCenter(centerView.getX(), centerView.getY());
+    sf::Vector2<float> centerView = this->getCenterDrawableMap();
+	this->view.setCenter(centerView.x, centerView.y);
 	this->window.setView(this->view);
 
 	this->entranceAnimation();
@@ -41,17 +41,17 @@ void RenderingEngine::drawMap(){
 
 void RenderingEngine::entranceAnimation(){
 	int framesDuration = 2;
-	auto animation = [](Position& position){ position.setY(position.getY() - 1); position.setX(position.getX() - 1); };
+	auto animation = [](sf::Vector2<float>& position){ position.y -= 1; position.x -= 1; };
 	int globalOffset = fmax(this->map.getWidth(), this->map.getHeight());
 
 	for(unsigned int i = 0; i < this->map.getWidth(); i++){
 		for(unsigned int j = 0; j < this->map.getHeight(); j++){
-			Block& block = this->map.get(Position(i, j));
+			Block& block = this->map.get(sf::Vector2<float>(i, j));
 
-			int blockOffset = fmin(block.getPosition().getX() - block.getPosition().getY(), -block.getPosition().getX() + block.getPosition().getY());
+			int blockOffset = fmin(block.getPosition().x - block.getPosition().y, -block.getPosition().x + block.getPosition().y);
 			int offset = globalOffset + blockOffset;
 
-			block.animate(Position(block.getPosition().getX() + offset, block.getPosition().getY() + offset), animation, framesDuration);
+			block.animate(sf::Vector2<float>(block.getPosition().x + offset, block.getPosition().y + offset), animation, framesDuration);
 		}
 	}
 }
@@ -89,7 +89,7 @@ std::list<std::reference_wrapper<SpriteTool>> RenderingEngine::getMapDrawables()
 
 	for(unsigned int i = 0; i < this->map.getWidth() ; i++){
 		for(unsigned int j = 0; j < this->map.getHeight(); j++){
-			Position casePosition(i, j);
+			sf::Vector2<float> casePosition(i, j);
 
 			Block& currentCase = this->map.get(casePosition);
 			SpriteTool& sprite = currentCase.getSprite();
@@ -103,37 +103,37 @@ std::list<std::reference_wrapper<SpriteTool>> RenderingEngine::getMapDrawables()
 	return drawables;
 }
 
-Position RenderingEngine::getCenterDrawableMap(){
-	Position centerMap = Position(this->map.getWidth() / 2, this->map.getHeight() / 2);
+sf::Vector2<float> RenderingEngine::getCenterDrawableMap(){
+	sf::Vector2<float> centerMap = sf::Vector2<float>(this->map.getWidth() / 2, this->map.getHeight() / 2);
 
 	return this->convertMapPositionToWindowPosition(centerMap);
 }
 
-void RenderingEngine::setCaseSpritePosition(SpriteTool& sprite, const Position& position, unsigned int height){
-	Position isometricPosition = this->convertMapPositionToWindowPosition(position);
+void RenderingEngine::setCaseSpritePosition(SpriteTool& sprite, const sf::Vector2<float>& position, unsigned int height){
+	sf::Vector2<float> isometricPosition = this->convertMapPositionToWindowPosition(position);
 
-	isometricPosition.setY(isometricPosition.getY() - (height * sprite.getTexture()->getSize().y / 2));
+	isometricPosition.y -= (height * sprite.getTexture()->getSize().y / 2);
 
-	sprite.setPosition(isometricPosition.getX(), isometricPosition.getY());
+	sprite.setPosition(isometricPosition.x, isometricPosition.y);
 }
 
-Position RenderingEngine::convertMapPositionToWindowPosition(const Position& position){
-	Position windowPosition = this->transformEuclidianPositionToIsometric(position);
+sf::Vector2<float> RenderingEngine::convertMapPositionToWindowPosition(const sf::Vector2<float>& position){
+	sf::Vector2<float> windowPosition = this->transformEuclidianPositionToIsometric(position);
 
-	windowPosition.setX(windowPosition.getX() * (this->map.get(Position(0, 0)).getSprite().getTexture()->getSize().x / 2));
-	windowPosition.setY(windowPosition.getY() * (this->map.get(Position(0, 0)).getSprite().getTexture()->getSize().y / 4));
+	windowPosition.x = windowPosition.x * (this->map.get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().x / 2);
+	windowPosition.y = windowPosition.y * (this->map.get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().y / 4);
 
 	return windowPosition;
 }
 
-Position RenderingEngine::transformEuclidianPositionToIsometric(const Position& position){
-	Position isometricPosition;
+sf::Vector2<float> RenderingEngine::transformEuclidianPositionToIsometric(const sf::Vector2<float>& position){
+	sf::Vector2<float> isometricPosition;
 
-	unsigned int x = position.getX();
-	unsigned int y = position.getY();
+	unsigned int x = position.x;
+	unsigned int y = position.y;
 
-	isometricPosition.setX(x - y);
-	isometricPosition.setY(x + y);
+	isometricPosition.x = x - y;
+	isometricPosition.y = x + y;
 
 	return isometricPosition;
 }

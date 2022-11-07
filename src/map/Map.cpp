@@ -7,17 +7,10 @@ Map::Map(unsigned int width, unsigned int height) : width(width), height(height)
 		std::vector<Block> line;
 
 		for(unsigned int j = 0; j < height; j++){
-			Position position(i, j);
+			sf::Vector2<float> position(i, j);
 			Block currentCase;
 
 			currentCase.setPosition(position);
-
-			if(i == 1 || j == 1 || i == width - 2 || j == height - 2){
-				currentCase.setHeight(1);
-			}
-			if(i == 0 || j == 0 || i == width - 1 || j == height - 1){
-				currentCase.setHeight(2);
-			}
 
 			line.push_back(currentCase);
 		}
@@ -26,12 +19,20 @@ Map::Map(unsigned int width, unsigned int height) : width(width), height(height)
 	}
 }
 
-Block& Map::get(const Position& position){
-	return this->map[position.getX()][position.getY()];
+Block& Map::get(const sf::Vector2<float>& position){
+	return this->map[position.x][position.y];
 }
 
-const Block& Map::get(const Position& position) const{
-	return this->map[position.getX()][position.getY()];
+const Block& Map::get(const sf::Vector2<float>& position) const{
+	return this->map[position.x][position.y];
+}
+
+Block& Map::get(uint x, uint y){
+	return this->map[x][y];
+}
+
+const Block& Map::get(uint x, uint y) const{
+	return this->map[x][y];
 }
 
 unsigned int Map::getWidth() const{
@@ -43,11 +44,11 @@ unsigned int Map::getHeight() const{
 }
 
 unsigned int Map::getDrawableWidth(){
-	return this->width * this->get(Position(0, 0)).getSprite().getTexture()->getSize().x;
+	return this->width * this->get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().x;
 }
 
 unsigned int Map::getDrawableHeight(){
-	return this->height * (this->get(Position(0, 0)).getSprite().getTexture()->getSize().y / 2);
+	return this->height * (this->get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().y / 2);
 }
 
 unsigned int Map::getNumberOfCases() const{

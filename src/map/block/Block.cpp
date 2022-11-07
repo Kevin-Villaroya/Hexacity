@@ -9,7 +9,7 @@ Block::Block(unsigned int height, unsigned int temperature) : Block(height, temp
 
 Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : height(height), temperature(temperature), humidity(humidity), sprite(Block::block), animationBlock(this->position) {}
 
-void Block::animate(Position positionStart, std::function<void(Position&)> animation, int framesDuration){
+void Block::animate(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration){
   this->animationBlock = AnimationBlock(animation, positionStart, this->position, framesDuration);
 
   this->animationBlock.play();
@@ -31,7 +31,7 @@ unsigned int Block::getHumidity() const{
   return this->humidity;
 }
 
-Position Block::getPosition(){
+sf::Vector2<float> Block::getPosition(){
   if(this->animationBlock.isRunning()){
     return this->animationBlock.getCurrentPosition();
   }
@@ -51,12 +51,12 @@ void Block::setHumidity(unsigned int humidity){
   this->humidity = humidity;
 }
 
-void Block::setPosition(const Position& position){
+void Block::setPosition(const sf::Vector2<float>& position){
   this->position = position;
 }
 
 void Block::setPosition(int x, int y){
-  this->position = Position(x, y);
+  this->position = sf::Vector2<float>(x, y);
 }
 
 SpriteTool& Block::getSprite(){  

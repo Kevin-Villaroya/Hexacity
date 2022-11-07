@@ -1,9 +1,9 @@
 #include "AnimationBlock.h"
 #include <iostream>
 
-AnimationBlock::AnimationBlock(Position& position) : AnimationBlock([](Position&){}, position, Position(0, 0), 0) {}
+AnimationBlock::AnimationBlock(sf::Vector2<float>& position) : AnimationBlock([](sf::Vector2<float>&){}, position, sf::Vector2<float>(0, 0), 0) {}
 
-AnimationBlock::AnimationBlock(std::function<void(Position&)> animation, Position& positionStart, Position endPosition, int framesDuration) : Animation(), animation(animation), currentPosition(positionStart), endPosition(endPosition), framesDuration(framesDuration), framesWaited(0){}
+AnimationBlock::AnimationBlock(std::function<void(sf::Vector2<float>&)> animation, sf::Vector2<float>& positionStart, sf::Vector2<float> endPosition, int framesDuration) : Animation(), animation(animation), currentPosition(positionStart), endPosition(endPosition), framesDuration(framesDuration), framesWaited(0){}
 
 void AnimationBlock::play(){
     this->running = true;
@@ -11,7 +11,7 @@ void AnimationBlock::play(){
 
 void AnimationBlock::update(){
     if(this->running && framesDuration == framesWaited){
-        if(this->currentPosition.getX() == this->endPosition.getX() &&this->currentPosition.getY() == this->endPosition.getY()){
+        if(this->currentPosition.x == this->endPosition.x &&this->currentPosition.y == this->endPosition.y){
             this->running = false;
         }
 
@@ -25,7 +25,7 @@ void AnimationBlock::update(){
     }
 }
 
-const Position& AnimationBlock::getCurrentPosition() const{
+const sf::Vector2<float>& AnimationBlock::getCurrentPosition() const{
     return this->currentPosition;
 }
 
