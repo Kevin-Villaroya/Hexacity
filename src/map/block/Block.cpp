@@ -13,7 +13,7 @@ Block::Block(unsigned int height, unsigned int temperature, unsigned int humidit
   temperature(temperature), 
   humidity(humidity), 
   animationBlock(this->position), 
-  animationTexture(TextureToolAnimation::block, 10), 
+  animationTexture(TextureToolAnimation::plain, 10), 
   sprite(animationTexture.getTexture())
 {}
 

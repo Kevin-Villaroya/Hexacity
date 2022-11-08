@@ -19,17 +19,11 @@ void AnimatedTexture::update(){
 
         switch(this->forward){
             case true:
-                this->currentTexture++;
+                this->currentTexture < this->textures.getSize() - 1? this->currentTexture++ : this->forward = false;
                 break;
             default:
-                this->currentTexture--;
+                this->currentTexture > 0 ? this->currentTexture-- : this->forward = true;
                 break;
-        }
-
-        if(this->currentTexture == 0){
-            this->forward = true;
-        }else if(this->currentTexture == this->textures.getSize() - 1){
-            this->forward = false;
         }
     }else{
         framesWaited++;
