@@ -1,5 +1,5 @@
-Creer un moteur graphique de carte hexagonal
-	- Animation possible sur la case
+height display block behind
+
 Creer un generateur de map (montagne, riviere, foret, plaine, desert)
 	- associer des cases a un biome voulu
 	- modifier la hauteur cas par cas

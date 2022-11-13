@@ -8,12 +8,14 @@ Block::Block(unsigned int height, unsigned int temperature) :
   Block(height, temperature, 0) 
 {}
 
-Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : 
-  height(height), 
-  temperature(temperature), 
-  humidity(humidity), 
-  animationBlock(this->position), 
-  animationTexture(TextureToolAnimation::plain, 10), 
+Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : Block(height, temperature, humidity, TextureToolAnimation::plain) {}
+
+Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity, const TextureToolAnimation& biome) : 
+  height(height),
+  temperature(temperature),
+  humidity(humidity),
+  animationBlock(this->position),
+  animationTexture(biome, 10),
   sprite(animationTexture.getTexture())
 {}
 
@@ -67,6 +69,10 @@ void Block::setPosition(const sf::Vector2<float>& position){
 
 void Block::setPosition(int x, int y){
   this->position = sf::Vector2<float>(x, y);
+}
+
+void Block::setTexture(const TextureToolAnimation& texture){
+  this->animationTexture.setTexture(texture);
 }
 
 SpriteTool& Block::getSprite(){

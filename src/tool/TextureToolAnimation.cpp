@@ -1,7 +1,6 @@
 #include "TextureToolAnimation.h"
 #include <filesystem>
 
-const TextureToolAnimation TextureToolAnimation::block = TextureToolAnimation("assets/block/default");
 const TextureToolAnimation TextureToolAnimation::plain = TextureToolAnimation("assets/block/plain");
 const TextureToolAnimation TextureToolAnimation::water = TextureToolAnimation("assets/block/water");
 

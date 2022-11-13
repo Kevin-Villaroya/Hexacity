@@ -19,7 +19,7 @@ void AnimatedTexture::update(){
 
         switch(this->forward){
             case true:
-                this->currentTexture < this->textures.getSize() - 1? this->currentTexture++ : this->forward = false;
+                this->currentTexture < this->textures.get().getSize() - 1? this->currentTexture++ : this->forward = false;
                 break;
             default:
                 this->currentTexture > 0 ? this->currentTexture-- : this->forward = true;
@@ -30,6 +30,10 @@ void AnimatedTexture::update(){
     }
 }
 
+void AnimatedTexture::setTexture(const TextureToolAnimation& textures){
+    this->textures = textures;
+}
+
 const TextureTool& AnimatedTexture::getTexture() const{
-    return this->textures.getTexture(this->currentTexture);
+    return this->textures.get().getTexture(this->currentTexture);
 }

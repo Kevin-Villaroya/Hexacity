@@ -23,6 +23,7 @@ class Block{
     Block(unsigned int height = 0);
     Block(unsigned int height, unsigned int temperature);
     Block(unsigned int height, unsigned int temperature, unsigned int humidity);
+    Block(unsigned int height, unsigned int temperature, unsigned int humidity, const TextureToolAnimation& biome);
 
     void animateBlock(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration = 0);
 
@@ -38,6 +39,8 @@ class Block{
     void setHumidity(unsigned int humidity);
     void setPosition(const sf::Vector2<float>& position);
     void setPosition(int x, int y);
+
+    void setTexture(const TextureToolAnimation& texture);
 
     SpriteTool& getSprite();
 };

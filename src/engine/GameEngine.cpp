@@ -11,16 +11,9 @@ void GameEngine::initMap(){
 
 	for(unsigned int i = 0; i < width; i++){
 		for(unsigned int j = 0; j < height; j++){
-			Block& currentCase = this->map.get(i, j);
-
-			if(i == 1 || j == 1 || i == width - 2 || j == height - 2){
-				currentCase.setHeight(1);
+			if(i == j || i == j-1 || i == j+1 || j == i-1 || j == i+1){
+				this->map.get(i, j).setTexture(TextureToolAnimation::water);
 			}
-
-			if(i == 0 || j == 0 || i == width - 1 || j == height - 1){
-				currentCase.setHeight(2);
-			}
-
 		}
 	}
 }

@@ -4,10 +4,11 @@
 #include "./Animation.h"
 #include "../../tool/TextureTool.h"
 #include "../tool/TextureToolAnimation.h"
+#include <memory>
 
 class AnimatedTexture : public Animation{
   private:
-    const TextureToolAnimation& textures;
+    std::reference_wrapper<const TextureToolAnimation> textures;
 
     uint currentTexture;
     bool forward;
@@ -21,6 +22,7 @@ class AnimatedTexture : public Animation{
     void play();
     void update();
 
+    void setTexture(const TextureToolAnimation& textures);
     const TextureTool& getTexture() const;
 };
 
