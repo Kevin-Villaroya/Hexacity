@@ -7,12 +7,16 @@ GameEngine::GameEngine(Map& map, int ticksBeforeEachUpdate) : map(map), ticksBef
 
 void GameEngine::initMap(){
 	uint width = this->map.getWidth();
-	uint height = this->map.getHeight();
+	uint height = this->map.getLenght();
 
 	for(unsigned int i = 0; i < width; i++){
 		for(unsigned int j = 0; j < height; j++){
 			if(i == j || i == j-1 || i == j+1 || j == i-1 || j == i+1){
 				this->map.get(i, j).setTexture(TextureToolAnimation::water);
+			}
+
+			if(i == 0){
+				this->map.get(i, j).setHeight(1);
 			}
 		}
 	}
@@ -33,7 +37,7 @@ bool GameEngine::tick(){
 
 bool GameEngine::update(){
 	for(unsigned int i = 0; i < this->map.getWidth(); i++){
-		for(unsigned int j = 0; j < this->map.getHeight(); j++){
+		for(unsigned int j = 0; j < this->map.getLenght(); j++){
 			this->map.get(sf::Vector2<float>(i, j)).update();
 		}
 	}

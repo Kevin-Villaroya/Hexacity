@@ -22,11 +22,11 @@ class RenderingEngine{
 
 		void entranceAnimation();
 
-		void setCaseSpritePosition(SpriteTool& sprite, const sf::Vector2<float>& position, unsigned int height);
+		void setCaseSpritePosition(SpriteTool& sprite, const sf::Vector3<float>& position, unsigned int height);
 
-		sf::Vector2<float> getCenterDrawableMap();
-		sf::Vector2<float> convertMapPositionToWindowPosition(const sf::Vector2<float>& position);
-		sf::Vector2<float> transformEuclidianPositionToIsometric(const sf::Vector2<float>& position);
+		sf::Vector3<float> getCenterDrawableMap();
+		sf::Vector3<float> convertMapPositionToWindowPosition(const sf::Vector3<float>& position);
+		sf::Vector3<float> transformEuclidianPositionToIsometric(const sf::Vector3<float>& position);
 		bool checkEvents();
 };
 

@@ -1,9 +1,9 @@
 #include "AnimationBlock.h"
 #include <iostream>
 
-AnimationBlock::AnimationBlock(sf::Vector2<float>& position) : AnimationBlock([](sf::Vector2<float>&){}, position, sf::Vector2<float>(0, 0), 0) {}
+AnimationBlock::AnimationBlock(sf::Vector3<float>& position) : AnimationBlock([](sf::Vector3<float>&){}, position, sf::Vector3<float>(0, 0, 0), 0) {}
 
-AnimationBlock::AnimationBlock(std::function<void(sf::Vector2<float>&)> animation, sf::Vector2<float>& positionStart, sf::Vector2<float> endPosition, int framesDuration) : Animation(), animation(animation), currentPosition(positionStart), endPosition(endPosition), framesDuration(framesDuration), framesWaited(0){}
+AnimationBlock::AnimationBlock(std::function<void(sf::Vector3<float>&)> animation, sf::Vector3<float>& positionStart, sf::Vector3<float> endPosition, int framesDuration) : Animation(), animation(animation), currentPosition(positionStart), endPosition(endPosition), framesDuration(framesDuration), framesWaited(0){}
 
 void AnimationBlock::play(){
     this->running = true;
@@ -25,7 +25,7 @@ void AnimationBlock::update(){
     }
 }
 
-const sf::Vector2<float>& AnimationBlock::getCurrentPosition() const{
+const sf::Vector3<float>& AnimationBlock::getCurrentPosition() const{
     return this->currentPosition;
 }
 

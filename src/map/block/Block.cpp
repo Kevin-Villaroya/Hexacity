@@ -19,7 +19,7 @@ Block::Block(unsigned int height, unsigned int temperature, unsigned int humidit
   sprite(animationTexture.getTexture())
 {}
 
-void Block::animateBlock(sf::Vector2<float> positionStart, std::function<void(sf::Vector2<float>&)> animation, int framesDuration){
+void Block::animateBlock(sf::Vector3<float> positionStart, std::function<void(sf::Vector3<float>&)> animation, int framesDuration){
   this->animationBlock = AnimationBlock(animation, positionStart, this->position, framesDuration);
 
   this->animationBlock.play();
@@ -43,11 +43,11 @@ unsigned int Block::getHumidity() const{
   return this->humidity;
 }
 
-sf::Vector2<float> Block::getPosition(){
+sf::Vector3<float> Block::getPosition() const{
   if(this->animationBlock.isRunning()){
     return this->animationBlock.getCurrentPosition();
   }
-
+  
   return this->position;
 }
 
@@ -63,12 +63,12 @@ void Block::setHumidity(unsigned int humidity){
   this->humidity = humidity;
 }
 
-void Block::setPosition(const sf::Vector2<float>& position){
+void Block::setPosition(const sf::Vector3<float>& position){
   this->position = position;
 }
 
-void Block::setPosition(int x, int y){
-  this->position = sf::Vector2<float>(x, y);
+void Block::setPosition(int x, int y, int z){
+  this->position = sf::Vector3<float>(x, y, z);
 }
 
 void Block::setTexture(const TextureToolAnimation& texture){

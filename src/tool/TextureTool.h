@@ -2,7 +2,6 @@
 #define __TEXTURE_TOOL_H__
 
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Network/Packet.hpp>
 #include <string>
 
