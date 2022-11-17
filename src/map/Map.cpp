@@ -22,6 +22,14 @@ Map::Map(unsigned int width, unsigned int lenght) : width(width), lenght(lenght)
 	}
 }
 
+void Map::update(){
+	for(unsigned int x = 0; x < this->getWidth(); x++){
+		for(unsigned int y = 0; y < this->getLenght(); y++){
+			this->get(x, y).update();
+		}
+	}
+}
+
 Block& Map::get(const sf::Vector2<float>& position){
 	return this->get(position.x, position.y);
 }
@@ -51,7 +59,7 @@ std::vector<Block>& Map::getColumn(uint x, uint y){
 }
 
 void Map::setHeightBlock(const Block& block, uint height){
-
+	this->setHeightBlock(block.getPosition().x, block.getPosition().y, height);
 }
 
 void Map::setHeightBlock(uint x, uint y, uint height){
@@ -66,8 +74,6 @@ void Map::setHeightBlock(uint x, uint y, uint height){
 		block.setHeight(0); 
 		block.setPosition(topBlock.getPosition());
 		block.setTexture(TextureToolAnimation::basic);
-
-		std::cout << block.getSprite().getTexture()->getSize().x << std::endl;
 
 		this->map[x][y].push_back(block);
 	}

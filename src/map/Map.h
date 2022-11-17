@@ -14,6 +14,8 @@ class Map{
 	public:
 		Map(unsigned int width, unsigned int lenght);
 
+		void update();
+
 		Block& get(const sf::Vector2<float>& position);
 		const Block& get(const sf::Vector2<float>& position) const;
 

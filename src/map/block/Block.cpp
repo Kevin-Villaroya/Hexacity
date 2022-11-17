@@ -73,8 +73,9 @@ void Block::setPosition(int x, int y, int z){
 
 void Block::setTexture(const TextureToolAnimation& texture){
   this->animationTexture.setTexture(texture);
+  this->sprite.setTexture(this->animationTexture.getTexture());
 }
 
-SpriteTool& Block::getSprite(){
+SpriteTool& Block::getSprite(){ 
   return this->sprite;
 }

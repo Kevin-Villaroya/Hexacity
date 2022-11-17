@@ -36,11 +36,7 @@ bool GameEngine::tick(){
 }
 
 bool GameEngine::update(){
-	for(unsigned int i = 0; i < this->map.getWidth(); i++){
-		for(unsigned int j = 0; j < this->map.getLenght(); j++){
-			this->map.get(sf::Vector2<float>(i, j)).update();
-		}
-	}
+	this->map.update();
 
 	return true;
 }
