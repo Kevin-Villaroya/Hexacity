@@ -20,6 +20,14 @@ class Map{
 		Block& get(uint x, uint y);
 		const Block& get(uint x, uint y) const;
 
+		Block& get(uint x, uint y, uint z);
+		const Block& get(uint x, uint y, uint z) const;
+
+		std::vector<Block>& getColumn(uint x, uint y);
+
+		void setHeightBlock(const Block& block, uint height);
+		void setHeightBlock(uint x, uint y, uint height);
+
 		unsigned int getWidth() const;
 		unsigned int getLenght() const;
 

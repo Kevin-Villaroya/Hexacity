@@ -16,7 +16,7 @@ void GameEngine::initMap(){
 			}
 
 			if(i == 0){
-				this->map.get(i, j).setHeight(1);
+				this->map.setHeightBlock(i, j, 1);
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main(){
-	Map map(30, 30);
+	Map map(10, 10);
 	Engine game(map);
 
 	game.run();

@@ -8,6 +8,7 @@
 
 class TextureToolAnimation{
     public:
+        static const TextureToolAnimation basic;
         static const TextureToolAnimation plain;
         static const TextureToolAnimation water;
 

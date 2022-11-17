@@ -3,9 +3,7 @@
 
 Map::Map(unsigned int width, unsigned int lenght) : width(width), lenght(lenght) {
 	for(unsigned int x = 0; x < width; x++){
-
 		std::vector<std::vector<Block>> line;
-
 
 		for(unsigned int y = 0; y < lenght; y++){
 			std::vector<Block> column;
@@ -33,11 +31,48 @@ const Block& Map::get(const sf::Vector2<float>& position) const{
 }
 
 Block& Map::get(uint x, uint y){
-	return this->map[x][y][0];
+	return this->map[x][y][this->map[x][y].size() - 1];
 }
 
 const Block& Map::get(uint x, uint y) const{
-	return this->map[x][y][0];
+	return this->map[x][y][this->map[x][y].size() - 1];
+}
+
+Block& Map::get(uint x, uint y, uint z){
+	return this->map[x][y][z];
+}
+
+const Block& Map::get(uint x, uint y, uint z) const{
+	return this->map[x][y][z];
+}
+
+std::vector<Block>& Map::getColumn(uint x, uint y){
+	return this->map[x][y];
+}
+
+void Map::setHeightBlock(const Block& block, uint height){
+
+}
+
+void Map::setHeightBlock(uint x, uint y, uint height){
+	Block topBlock = this->get(x, y);
+	topBlock.setHeight(height);
+
+	this->map[x][y].clear();
+
+	Block block;
+
+	while(this->map[x][y].size() < height){
+		block.setHeight(0); 
+		block.setPosition(topBlock.getPosition());
+		block.setTexture(TextureToolAnimation::basic);
+
+		std::cout << block.getSprite().getTexture()->getSize().x << std::endl;
+
+		this->map[x][y].push_back(block);
+	}
+
+	this->map[x][y].push_back(topBlock);
 }
 
 unsigned int Map::getWidth() const{

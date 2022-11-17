@@ -11,7 +11,7 @@ RenderingEngine::RenderingEngine(Map& map, unsigned int fps, unsigned int widthW
 	this->view.setCenter(centerView.x, centerView.y);
 	this->window.setView(this->view);
 
-	this->entranceAnimation();
+	//this->entranceAnimation();
 }
 
 bool RenderingEngine::tick(){
@@ -89,12 +89,19 @@ std::list<std::reference_wrapper<SpriteTool>> RenderingEngine::getMapDrawables()
 
 	for(unsigned int i = 0; i < this->map.getWidth() ; i++){
 		for(unsigned int j = 0; j < this->map.getLenght(); j++){
-			Block& currentCase = this->map.get(i, j);
-			SpriteTool& sprite = currentCase.getSprite();
+			for(unsigned int k = 0; k < this->map.getColumn(i, j).size(); k++){				
 
-			this->setCaseSpritePosition(sprite, currentCase.getPosition(), currentCase.getHeight());
+				Block& currentCase = this->map.get(i, j, k);
+				SpriteTool& sprite = currentCase.getSprite();
 
-			drawables.push_back(sprite);
+				this->setCaseSpritePosition(sprite, currentCase.getPosition(), currentCase.getHeight());
+			
+				drawables.push_back(sprite);
+
+				if(i == 0){
+					//std::cout << sprite.getTexture()->getSize().x << std::endl;
+				}
+			}
 		}
 	}
 
