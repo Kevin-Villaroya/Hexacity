@@ -1,18 +1,22 @@
 #ifndef __ENTIY_H__
 #define __ENTIY_H__
 
-#include <SFML/sprite>
+#include "../animation/AnimatedSprite.h"
 
 class Entity{
     private:
-        sf::Vector2f size;
         sf::Vector2f position;
+        sf::Vector2f size;
 
-        AnimatedTexture texture;
+        AnimatedSprite sprite;
 
     public:
         Entity();
-        virtual void update(float dt) = 0;
+        Entity(const sf::Vector2f& position);
+        Entity(const sf::Vector2f& position, const TextureToolAnimation& texture);
+        Entity(const sf::Vector2f& position, const sf::Vector2f& size, const TextureToolAnimation& texture);
+
+        virtual void update() = 0;
 };
 
 #endif

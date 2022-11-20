@@ -3,6 +3,7 @@
 
 #include "../map/Map.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <list>
 
 class RenderingEngine{
@@ -18,11 +19,11 @@ class RenderingEngine{
 	private:
 		void render();
 		void drawMap();
-		std::list<std::reference_wrapper<SpriteTool>> getMapDrawables();
+		std::list<sf::Sprite*> getMapDrawables();
 
 		void entranceAnimation();
 
-		void setCaseSpritePosition(SpriteTool& sprite, const sf::Vector3<float>& position, unsigned int height);
+		void setCaseSpritePosition(sf::Sprite& sprite, const sf::Vector3<float>& position, unsigned int height);
 
 		sf::Vector3<float> getCenterDrawableMap();
 		sf::Vector3<float> convertMapPositionToWindowPosition(const sf::Vector3<float>& position);

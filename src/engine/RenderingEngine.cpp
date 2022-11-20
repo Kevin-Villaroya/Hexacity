@@ -1,17 +1,16 @@
 #include "RenderingEngine.h"
 #include <iostream>
 #include <cmath>
-
-#include "../../tool/SpriteTool.h"
+#include <SFML/Graphics/Color.hpp>
 
 RenderingEngine::RenderingEngine(Map& map, unsigned int fps, unsigned int widthWindow, unsigned int heightWindow) : map(map), view(sf::Vector2f(0, 0), sf::Vector2f(map.getDrawableWidth(), map.getDrawableLenght())), window(sf::VideoMode(widthWindow, heightWindow), "Hexacity"){
 	this->window.setFramerateLimit(fps);
 
-    sf::Vector3<float> centerView = this->getCenterDrawableMap();
+  sf::Vector3<float> centerView = this->getCenterDrawableMap();
 	this->view.setCenter(centerView.x, centerView.y);
 	this->window.setView(this->view);
 
-	//this->entranceAnimation();
+	this->entranceAnimation();
 }
 
 bool RenderingEngine::tick(){
@@ -29,29 +28,31 @@ void RenderingEngine::render(){
 }
 
 void RenderingEngine::drawMap(){
-	std::list<std::reference_wrapper<SpriteTool>> drawables = this->getMapDrawables();
+	std::list<sf::Sprite*> drawables = this->getMapDrawables();
 
 	while(!drawables.empty()){
-		SpriteTool& sprite = drawables.front().get();
+		sf::Sprite* sprite = drawables.front();
 
-		this->window.draw(sprite);
+		this->window.draw(*sprite);
 		drawables.pop_front();
 	}
 }
 
 void RenderingEngine::entranceAnimation(){
 	int framesDuration = 2;
-	auto animation = [](sf::Vector3<float>& position){ position.y -= 1; position.x -= 1; };
+	auto animation = [](sf::Vector3<float>& position){ position.y -= 1; position.x -= 1;};
 	int globalOffset = fmax(this->map.getWidth(), this->map.getLenght());
 
 	for(unsigned int i = 0; i < this->map.getWidth(); i++){
 		for(unsigned int j = 0; j < this->map.getLenght(); j++){
-			Block& block = this->map.get(sf::Vector2<float>(i, j));
+			for(unsigned int k = 0; k < this->map.getColumn(i, j).size(); k++){
+				Block& block = this->map.get(i, j, k);
 
-			int blockOffset = fmin(block.getPosition().x - block.getPosition().y, -block.getPosition().x + block.getPosition().y);
-			int offset = globalOffset + blockOffset;
+				int blockOffset = fmin(block.getPosition().x - block.getPosition().y, -block.getPosition().x + block.getPosition().y);
+				int offset = globalOffset + blockOffset;
 
-			block.animateBlock(sf::Vector3<float>(block.getPosition().x + offset, block.getPosition().y + offset, block.getPosition().z), animation, framesDuration);
+				block.animateBlock(sf::Vector3<float>(block.getPosition().x + offset, block.getPosition().y + offset, block.getPosition().z), animation, framesDuration);
+			}
 		}
 	}
 }
@@ -84,23 +85,19 @@ bool RenderingEngine::checkEvents(){
 	return true;
 }
 
-std::list<std::reference_wrapper<SpriteTool>> RenderingEngine::getMapDrawables(){
-	std::list<std::reference_wrapper<SpriteTool>> drawables;
+std::list<sf::Sprite*> RenderingEngine::getMapDrawables(){
+	std::list<sf::Sprite*> drawables;
 
 	for(unsigned int i = 0; i < this->map.getWidth() ; i++){
 		for(unsigned int j = 0; j < this->map.getLenght(); j++){
 			for(unsigned int k = 0; k < this->map.getColumn(i, j).size(); k++){				
 
 				Block& currentCase = this->map.get(i, j, k);
-				SpriteTool& sprite = currentCase.getSprite();
+				sf::Sprite& sprite = currentCase.getSprite();
 
 				this->setCaseSpritePosition(sprite, currentCase.getPosition(), currentCase.getHeight());
-			
-				drawables.push_back(sprite);
 
-				if(i == 0){
-					//std::cout << sprite.getTexture()->getSize().x << std::endl;
-				}
+				drawables.push_back(&sprite);
 			}
 		}
 	}
@@ -114,7 +111,7 @@ sf::Vector3<float> RenderingEngine::getCenterDrawableMap(){
 	return this->convertMapPositionToWindowPosition(centerMap);
 }
 
-void RenderingEngine::setCaseSpritePosition(SpriteTool& sprite, const sf::Vector3<float>& position, unsigned int height){
+void RenderingEngine::setCaseSpritePosition(sf::Sprite& sprite, const sf::Vector3<float>& position, unsigned int height){
 	sf::Vector3<float> isometricPosition = this->convertMapPositionToWindowPosition(position);
 
 	isometricPosition.y -= (height * sprite.getTexture()->getSize().y / 2);

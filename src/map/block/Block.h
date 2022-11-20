@@ -2,8 +2,7 @@
 #define __BLOCK_H__
 
 #include "../biome/Biome.h"
-#include "../../tool/SpriteTool.h"
-#include "../../animation/AnimatedTexture.h"
+#include "../../animation/AnimatedSprite.h"
 #include "../../animation/AnimationBlock.h"
 #include <SFML/System/Vector3.hpp>
 
@@ -16,9 +15,7 @@ class Block{
     unsigned int humidity;
 
     AnimationBlock animationBlock;
-    AnimatedTexture animationTexture;
-
-    SpriteTool sprite;
+    AnimatedSprite sprite;
 
   public:
     Block(unsigned int height = 0);
@@ -44,7 +41,7 @@ class Block{
 
     void setTexture(const TextureToolAnimation& texture);
 
-    SpriteTool& getSprite();
+    AnimatedSprite& getSprite();
 };
 
 #endif

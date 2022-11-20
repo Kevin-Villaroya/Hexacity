@@ -1,13 +1,17 @@
 #include "TextureToolAnimation.h"
 #include <filesystem>
+#include <iostream>
 
-const TextureToolAnimation TextureToolAnimation::basic = TextureToolAnimation("assets/block/default");
-const TextureToolAnimation TextureToolAnimation::plain = TextureToolAnimation("assets/block/plain");
-const TextureToolAnimation TextureToolAnimation::water = TextureToolAnimation("assets/block/water");
+const TextureToolAnimation TextureToolAnimation::EMPTY = TextureToolAnimation("assets/none");
 
-TextureToolAnimation::TextureToolAnimation(std::string path){
+const TextureToolAnimation TextureToolAnimation::basic = TextureToolAnimation("assets/block/default", "default");
+const TextureToolAnimation TextureToolAnimation::plain = TextureToolAnimation("assets/block/plain", "plain");
+const TextureToolAnimation TextureToolAnimation::water = TextureToolAnimation("assets/block/water", "water");
+
+TextureToolAnimation::TextureToolAnimation(std::string path, std::string name) : name(name){
     for (const auto & entry : std::filesystem::directory_iterator(path)){
         TextureTool texture(entry.path());
+
         this->textures.push_back(texture);
     } 
 }

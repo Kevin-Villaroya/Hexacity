@@ -8,15 +8,16 @@ Block::Block(unsigned int height, unsigned int temperature) :
   Block(height, temperature, 0) 
 {}
 
-Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : Block(height, temperature, humidity, TextureToolAnimation::plain) {}
+Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity) : 
+Block(height, temperature, humidity, TextureToolAnimation::plain) 
+{}
 
 Block::Block(unsigned int height, unsigned int temperature, unsigned int humidity, const TextureToolAnimation& biome) : 
   height(height),
   temperature(temperature),
   humidity(humidity),
   animationBlock(this->position),
-  animationTexture(biome, 10),
-  sprite(animationTexture.getTexture())
+  sprite(biome)
 {}
 
 void Block::animateBlock(sf::Vector3<float> positionStart, std::function<void(sf::Vector3<float>&)> animation, int framesDuration){
@@ -27,8 +28,7 @@ void Block::animateBlock(sf::Vector3<float> positionStart, std::function<void(sf
 
 void Block::update(){
   this->animationBlock.update();
-  this->animationTexture.update();
-  this->sprite.setTexture(this->animationTexture.getTexture());
+  this->sprite.update();
 }
 
 unsigned int Block::getHeight() const{
@@ -72,10 +72,9 @@ void Block::setPosition(int x, int y, int z){
 }
 
 void Block::setTexture(const TextureToolAnimation& texture){
-  this->animationTexture.setTexture(texture);
-  this->sprite.setTexture(this->animationTexture.getTexture());
+  this->sprite.setTextures(texture);
 }
 
-SpriteTool& Block::getSprite(){ 
+AnimatedSprite& Block::getSprite(){ 
   return this->sprite;
 }
