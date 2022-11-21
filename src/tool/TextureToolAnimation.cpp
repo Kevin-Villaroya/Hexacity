@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <iostream>
 
-const TextureToolAnimation TextureToolAnimation::EMPTY = TextureToolAnimation("assets/none", "none");
+const TextureToolAnimation TextureToolAnimation::EMPTY = TextureToolAnimation("assets/entity/none", "none");
 
 const TextureToolAnimation TextureToolAnimation::basic = TextureToolAnimation("assets/block/default", "default");
 const TextureToolAnimation TextureToolAnimation::plain = TextureToolAnimation("assets/block/plain", "plain");
