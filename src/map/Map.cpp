@@ -3,22 +3,16 @@
 
 Map::Map(unsigned int width, unsigned int lenght) : width(width), lenght(lenght) {
 	for(unsigned int x = 0; x < width; x++){
-		std::vector<std::vector<Block>> line;
+		auto& line = this->map.emplace_back();
 
 		for(unsigned int y = 0; y < lenght; y++){
-			std::vector<Block> column;
+			auto& column = line.emplace_back();
 
-			sf::Vector3<float> position(x, y, 0);
-			Block currentCase;
+			sf::Vector3<float> position(x, y, 0);			
+			Block& block = column.emplace_back();
 
-			currentCase.setPosition(position);
-
-			column.push_back(currentCase);
-
-			line.push_back(column);
+			block.setPosition(position);
 		}
-
-		this->map.push_back(line);
 	}
 }
 
@@ -40,47 +34,46 @@ const Block& Map::get(const sf::Vector2<float>& position) const{
 	return this->get(position.x, position.y);
 }
 
-Block& Map::get(uint x, uint y){
+Block& Map::get(unsigned int x, unsigned int y){
 	return this->map[x][y][this->map[x][y].size() - 1];
 }
 
-const Block& Map::get(uint x, uint y) const{
+const Block& Map::get(unsigned int x, unsigned int y) const{
 	return this->map[x][y][this->map[x][y].size() - 1];
 }
 
-Block& Map::get(uint x, uint y, uint z){
+Block& Map::get(unsigned int x, unsigned int y, unsigned int z){
 	return this->map[x][y][z];
 }
 
-const Block& Map::get(uint x, uint y, uint z) const{
+const Block& Map::get(unsigned int x, unsigned int y, unsigned int z) const{
 	return this->map[x][y][z];
 }
 
-std::vector<Block>& Map::getColumn(uint x, uint y){
+std::vector<Block>& Map::getColumn(unsigned int x, unsigned int y){
 	return this->map[x][y];
 }
 
-void Map::setHeightBlock(const Block& block, uint height){
+void Map::setHeightBlock(const Block& block, unsigned int height){
 	this->setHeightBlock(block.getPosition().x, block.getPosition().y, height);
 }
 
-void Map::setHeightBlock(uint x, uint y, uint height){
-	Block topBlock = this->get(x, y);
-	topBlock.setHeight(height);
+void Map::setHeightBlock(unsigned int x, unsigned int y, unsigned int height){
+	Block topBlock;
+	this->get(x, y).copyTo(topBlock);
 
 	this->map[x][y].clear();
 
-	Block block;
+	for(unsigned int z = 0; z <= height; z++){
+		Block& block = this->map[x][y].emplace_back();
 
-	while(this->map[x][y].size() < height){
-		block.setHeight(0); 
-		block.setPosition(topBlock.getPosition());
+		block.setHeight(z);
+		block.setPosition(x, y, z);
 		block.setTexture(TextureToolAnimation::basic);
-
-		this->map[x][y].push_back(block);
 	}
 
-	this->map[x][y].push_back(topBlock);
+	topBlock.copyTo(this->map[x][y][height]);
+	this->map[x][y][height].setHeight(height);
 }
 
 unsigned int Map::getWidth() const{

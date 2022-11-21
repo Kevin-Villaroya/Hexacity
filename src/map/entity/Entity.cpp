@@ -14,3 +14,11 @@ Entity(position, sf::Vector2f(0, 0), texture)
 Entity::Entity(const sf::Vector2f& position, const sf::Vector2f& size, const TextureToolAnimation& texture) : 
 position(position), size(size), sprite(texture)
 {}
+
+const AnimatedSprite& Entity::getSprite() const{
+    return this->sprite;
+}
+
+AnimatedSprite& Entity::getSprite(){
+    return this->sprite;
+}
