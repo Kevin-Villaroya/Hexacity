@@ -4,16 +4,17 @@
 #include "RenderingEngine.h"
 #include "GameEngine.h"
 #include "../map/Map.h"
+#include <memory>
 
 class Engine{
 	private:
-		Map& map;
+		std::shared_ptr<Map> map;
 		GameEngine gameEngine;
 		RenderingEngine renderingEngine;
 
 		bool running;
 	public:
-		Engine(Map& map);
+		Engine(std::shared_ptr<Map> map);
 
 		void run();
 };

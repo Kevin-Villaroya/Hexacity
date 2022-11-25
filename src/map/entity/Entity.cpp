@@ -11,6 +11,10 @@ Entity(position, sf::Vector2f(0, 0), texture)
 Entity::Entity(const sf::Vector3f& position, const sf::Vector2f& size, const TextureToolAnimation& texture) : 
 position(position), size(size), sprite(texture)
 {}
+ 
+const sf::Vector3f& Entity::getPosition() const{
+    return this->position;
+}
 
 const sf::Vector2f& Entity::getSize() const{
     return size;

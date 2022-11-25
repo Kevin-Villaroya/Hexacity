@@ -2,17 +2,18 @@
 #define __GAME_ENGINE_H__
 
 #include "../map/Map.h"
+#include <memory>
 
 class GameEngine{
 	private:
 		private:
-		Map& map;
+		std::shared_ptr<Map> map;
 
 		unsigned int ticksBeforeEachUpdate;
 		unsigned int ticksBeforeLastUpdate;
 
 	public:
-		GameEngine(Map& map, int ticksBeforeEachUpdate = 0);
+		GameEngine(std::shared_ptr<Map>& map, int ticksBeforeEachUpdate = 0);
 		bool tick();
 
 	private:

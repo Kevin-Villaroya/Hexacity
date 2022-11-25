@@ -21,6 +21,8 @@ class Entity{
         virtual void update() = 0;
         virtual TypeEntity getType() const = 0;
 
+        const sf::Vector3f& getPosition() const;
+
         const sf::Vector2f& getSize() const;
         void setSize(const sf::Vector2f& size);
 

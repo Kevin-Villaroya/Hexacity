@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include <iostream>
 
-Engine::Engine(Map& map) : map(map), gameEngine(map, 1), renderingEngine(map), running(false){}
+Engine::Engine(std::shared_ptr<Map> map) : map(map), gameEngine(map, 1), renderingEngine(map), running(false){}
 
 void Engine::run(){
 	this->running = true;

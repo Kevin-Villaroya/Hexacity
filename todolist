@@ -1,9 +1,24 @@
-add entities on blocks (animated)
-debug: display all map
-
 Creer un generateur de map (montagne, riviere, foret, plaine, desert)
-	- associer des cases a un biome voulu
-	- modifier la hauteur cas par cas
+	- Generer une riviere
+		- choix du nombre de riviere
+		- choix de la source de la riviere et de sa taille (largeur)
+		- choix de la prochaine direction de la rivier (proba)
+		- choix a moment clé de se séparer et changer la taille des deux qui en resultent
+		- si croisement avec une autre rivière, joindre les deux
+	- Generer un lac
+		- Choisir nombre de lac
+		- ajouter sur le passage 'une riviere et couper ceux qui rejoignait la mer
+		- pas de trou 
+	- Generer une chaine de montagne
+		- choisir un point capable d'acceullir la montagne sans gener
+		- chaine de montagne rectiligne
+		- chaine de montagne non bloquante
+	- Generer des forets
+		- choisir un point
+		- choisir une taille
+		- generer autour (moins en moins porbalbe d'apparition)
+		- pas de trou
+
 Creer un generateur de ville (nom, emplacement, taille, ...)
 Creer un outil de modification de case (hauteur de la case), evenement systemique associé
 Creer un outil d'ajout de batiment, puis ville

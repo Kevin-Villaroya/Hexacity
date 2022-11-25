@@ -27,14 +27,12 @@ void Map::update(){
 	}
 }
 
-void Map::addEntity(sf::Vector2f position, TypeEntity typeEntity, sf::Vector2f size){	
+void Map::addEntity(sf::Vector2f position, TypeEntity typeEntity){	
 	std::shared_ptr<Entity> entity = FactoryEntity::create(typeEntity, sf::Vector3<float>(position.x, position.y, 0));
 
-	this->get(position).addEntity(entity);
-
-	for(unsigned int x = position.x; x < position.x + size.x; x++){
-		for(unsigned int y = position.y; y < position.y + size.y; y++){
-			this->get(x, y).addEntity(entity);
+	for(unsigned int x = position.x; x <= position.x + entity->getSize().x ; x++){
+		for(unsigned int y = position.y - entity->getSize().y; y <= position.y ; y++){
+			this->get(x, y).addEntity(entity);	
 		}
 	}
 }
@@ -112,7 +110,7 @@ unsigned int Map::getDrawableWidth(){
 }
 
 unsigned int Map::getDrawableLenght(){
-	return this->lenght * (this->get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().y / 2);
+	return (this->lenght + 1) * (this->get(sf::Vector2<float>(0, 0)).getSprite().getTexture()->getSize().y / 2);
 }
 
 unsigned int Map::getSize() const{

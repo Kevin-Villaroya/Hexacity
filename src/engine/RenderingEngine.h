@@ -5,15 +5,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <list>
+#include <memory>
 
 class RenderingEngine{
 	private:
-		Map& map;
+		std::shared_ptr<Map> map;
 		sf::View view;
 		sf::RenderWindow window;
 
 	public:
-		RenderingEngine(Map& map, unsigned int fps = 60, unsigned int widthWindow = 1920, unsigned int heightWindow = 1080);
+		RenderingEngine(std::shared_ptr<Map> map, unsigned int fps = 60, unsigned int widthWindow = 1920, unsigned int heightWindow = 1080);
 		bool tick();
 
 	private:
@@ -25,7 +26,7 @@ class RenderingEngine{
 		void entranceAnimation();
 
 		void setCaseSpritePosition(sf::Sprite& sprite, const sf::Vector3<float>& position, unsigned int height);
-		void setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity, const sf::Vector3<float>& position, unsigned int height);
+		void setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity);
 
 		sf::Vector3<float> getCenterDrawableMap();
 		sf::Vector3<float> convertMapPositionToWindowPosition(const sf::Vector3<float>& position);

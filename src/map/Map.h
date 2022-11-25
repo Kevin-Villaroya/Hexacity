@@ -16,7 +16,7 @@ class Map{
 
 		void update();
 
-		void addEntity(sf::Vector2f position, TypeEntity typeEntity, sf::Vector2f size = sf::Vector2f(0, 0));
+		void addEntity(sf::Vector2f position, TypeEntity typeEntity);
 		void removeEntity(sf::Vector2f position, sf::Vector2f size);
 
 		Block& get(const sf::Vector2<float>& position);
