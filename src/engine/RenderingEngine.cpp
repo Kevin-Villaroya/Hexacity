@@ -87,20 +87,36 @@ bool RenderingEngine::checkEvents(){
 
 std::list<sf::Sprite*> RenderingEngine::getMapDrawables(){
 	std::list<sf::Sprite*> drawables;
+	std::list<sf::Sprite*> blockDrawables;
+	std::list<sf::Sprite*> entityDrawables;
 
 	for(unsigned int i = 0; i < this->map.getWidth() ; i++){
 		for(unsigned int j = 0; j < this->map.getLenght(); j++){
 			for(unsigned int k = 0; k < this->map.getColumn(i, j).size(); k++){				
 
 				Block& currentCase = this->map.get(i, j, k);
-				sf::Sprite& sprite = currentCase.getSprite();
+				sf::Sprite& blockSprite = currentCase.getSprite();
 
-				this->setCaseSpritePosition(sprite, currentCase.getPosition(), currentCase.getHeight());
+				this->setCaseSpritePosition(blockSprite, currentCase.getPosition(), currentCase.getHeight());
 
-				drawables.push_back(&sprite);
+				blockDrawables.push_back(&blockSprite);
+
+				if(currentCase.hasEntity()){
+					Entity& entity = currentCase.getEntity();
+					sf::Sprite& entitySprite = entity.getSprite();
+
+					entity.setSize(sf::Vector2f(1, 1));
+
+					this->setEntitySpritePosition(blockSprite, entity, currentCase.getPosition(), currentCase.getHeight());
+
+					entityDrawables.push_back(&entitySprite);
+				}
 			}
 		}
 	}
+
+	drawables.insert(std::end(drawables), std::begin(blockDrawables), std::end(blockDrawables));
+	drawables.insert(std::end(drawables), std::begin(entityDrawables), std::end(entityDrawables));
 
 	return drawables;
 }
@@ -109,6 +125,18 @@ sf::Vector3<float> RenderingEngine::getCenterDrawableMap(){
 	sf::Vector3<float> centerMap = sf::Vector3<float>(this->map.getWidth() / 2, this->map.getLenght() / 2, 0);
 
 	return this->convertMapPositionToWindowPosition(centerMap);
+}
+
+void RenderingEngine::setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity, const sf::Vector3<float>& position, unsigned int height){
+	sf::Vector3<float> isometricPosition = this->convertMapPositionToWindowPosition(position);
+	sf::Sprite& entitySprite = entity.getSprite();
+
+	isometricPosition.y -= blockSprite.getTexture()->getSize().y * 0.5;
+	isometricPosition.y -= (height * entitySprite.getTexture()->getSize().y / 2);
+
+	isometricPosition.y -= entity.getSize().y * entitySprite.getTexture()->getSize().y / 8;
+
+	entitySprite.setPosition(isometricPosition.x, isometricPosition.y);
 }
 
 void RenderingEngine::setCaseSpritePosition(sf::Sprite& sprite, const sf::Vector3<float>& position, unsigned int height){

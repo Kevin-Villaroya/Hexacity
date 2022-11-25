@@ -1,4 +1,5 @@
 add entities on blocks (animated)
+debug: display all map
 
 Creer un generateur de map (montagne, riviere, foret, plaine, desert)
 	- associer des cases a un biome voulu

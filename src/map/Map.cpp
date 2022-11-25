@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "entity/FactoryEntity.h"
 #include <iostream>
 
 Map::Map(unsigned int width, unsigned int lenght) : width(width), lenght(lenght) {
@@ -22,6 +23,28 @@ void Map::update(){
 			for(unsigned int z = 0; z < this->getColumn(x, y).size(); z++){
 				this->get(x, y, z).update();
 			}
+		}
+	}
+}
+
+void Map::addEntity(sf::Vector2f position, TypeEntity typeEntity, sf::Vector2f size){	
+	std::shared_ptr<Entity> entity = FactoryEntity::create(typeEntity, sf::Vector3<float>(position.x, position.y, 0));
+
+	this->get(position).addEntity(entity);
+
+	for(unsigned int x = position.x; x < position.x + size.x; x++){
+		for(unsigned int y = position.y; y < position.y + size.y; y++){
+			this->get(x, y).addEntity(entity);
+		}
+	}
+}
+
+void Map::removeEntity(sf::Vector2f position, sf::Vector2f size){
+	this->get(position).removeEntity();
+
+	for(unsigned int x = position.x; x < position.x + size.x; x++){
+		for(unsigned int y = position.y; y < position.y + size.y; y++){
+			this->get(x, y).removeEntity();
 		}
 	}
 }

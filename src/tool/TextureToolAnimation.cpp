@@ -3,6 +3,9 @@
 #include <iostream>
 
 const TextureToolAnimation TextureToolAnimation::EMPTY = TextureToolAnimation("assets/entity/none", "none");
+const TextureToolAnimation TextureToolAnimation::forest = TextureToolAnimation("assets/entity/forest", "forest");
+const TextureToolAnimation TextureToolAnimation::house = TextureToolAnimation("assets/entity/house", "house");
+const TextureToolAnimation TextureToolAnimation::mountain = TextureToolAnimation("assets/entity/mountain", "mountain");
 
 const TextureToolAnimation TextureToolAnimation::basic = TextureToolAnimation("assets/block/default", "default");
 const TextureToolAnimation TextureToolAnimation::plain = TextureToolAnimation("assets/block/plain", "plain");

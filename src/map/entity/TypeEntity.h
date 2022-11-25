@@ -3,7 +3,8 @@
 
 enum class TypeEntity{
     forest,
-    house
+    house,
+    mountain
 };
 
 #endif

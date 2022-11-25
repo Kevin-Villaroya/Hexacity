@@ -9,6 +9,9 @@
 class TextureToolAnimation{
     public:
         static const TextureToolAnimation EMPTY;
+        static const TextureToolAnimation forest;
+        static const TextureToolAnimation house;
+        static const TextureToolAnimation mountain;
 
         static const TextureToolAnimation basic;
         static const TextureToolAnimation plain;

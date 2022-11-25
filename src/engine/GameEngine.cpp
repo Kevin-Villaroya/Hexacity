@@ -13,6 +13,14 @@ void GameEngine::initMap(){
 		for(unsigned int j = 0; j < height; j++){
 			if(i == j || i == j-1 || i == j+1 || j == i-1 || j == i+1){
 				this->map.get(i, j).setTexture(TextureToolAnimation::water);
+			}else if(i % 2 == 0){
+				//this->map.addEntity(sf::Vector2f(i, j), TypeEntity::forest);
+			}else{
+				//this->map.addEntity(sf::Vector2f(i, j), TypeEntity::house);
+			}
+
+			if(i == 2 && j == 6){
+				this->map.addEntity(sf::Vector2f(i, j), TypeEntity::mountain);
 			}
 
 			if(i == 0){

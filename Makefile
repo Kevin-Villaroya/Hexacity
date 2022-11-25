@@ -24,8 +24,8 @@ $(TARGET_EXEC): $(OBJS)
 # c++ source
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	@$(MKDIR_P) $(dir $@)
-	@$(CC) $(CPPFLAGS) $(CFLAG) $(CPPFLAGS) -c $< -o $@ $(CLIB)
 	@echo Compiling $(shell basename $<)
+	@$(CC) $(CPPFLAGS) $(CFLAG) $(CPPFLAGS) -c $< -o $@ $(CLIB)
 
 
 .PHONY: clean

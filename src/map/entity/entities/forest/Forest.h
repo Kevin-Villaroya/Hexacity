@@ -5,6 +5,8 @@
 
 class Forest : public Entity{
     public:
+        Forest(const sf::Vector3f& position);
+
         void update() override;
         TypeEntity getType() const override;
 };

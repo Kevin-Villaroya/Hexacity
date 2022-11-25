@@ -1,6 +1,5 @@
 #include "Block.h"
 #include "../../tool/TextureToolAnimation.h"
-#include "../entity/FactoryEntity.h"
 #include <iostream>
 
 Block::Block() : Block(0){}
@@ -31,7 +30,7 @@ void Block::copyTo(Block& block){
   block.sprite = this->sprite;
 
   if(this->hasEntity()){
-    block.entity = std::move(FactoryEntity::create(this->getEntity().getType()));
+    block.entity = this->entity;
   }
 }
 
@@ -46,8 +45,12 @@ void Block::update(){
   this->sprite.update();
 }
 
-void Block::addEntity(TypeEntity type){
-  this->entity = std::move(FactoryEntity::create(type));
+void Block::addEntity(std::shared_ptr<Entity> entity){
+  this->entity = entity;
+}
+
+void Block::removeEntity(){
+  this->entity.reset();
 }
 
 bool Block::hasEntity() const{

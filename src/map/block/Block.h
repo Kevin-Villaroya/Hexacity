@@ -1,7 +1,6 @@
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
 
-#include "../biome/Biome.h"
 #include "../../animation/AnimatedSprite.h"
 #include "../../animation/AnimationBlock.h"
 #include "../entity/Entity.h"
@@ -22,7 +21,7 @@ class Block{
     AnimationBlock animationBlock;
     AnimatedSprite sprite;
 
-    std::optional<std::unique_ptr<Entity>> entity;
+    std::optional<std::shared_ptr<Entity>> entity;
 
   public:
     Block();
@@ -37,7 +36,8 @@ class Block{
 
     void update();
 
-    void addEntity(TypeEntity type);
+    void addEntity(std::shared_ptr<Entity> entity);
+    void removeEntity();
     bool hasEntity() const;
 
     const Entity& getEntity() const;

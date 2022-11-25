@@ -7,7 +7,7 @@
 
 class FactoryEntity{
     public:
-        static std::unique_ptr<Entity> create(TypeEntity type);
+        static std::shared_ptr<Entity> create(TypeEntity type, const sf::Vector3f& position);
 };
 
 #endif

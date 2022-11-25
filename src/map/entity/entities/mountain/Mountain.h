@@ -1,11 +1,11 @@
-#ifndef __HOUSE_H__
-#define __HOUSE_H__
+#ifndef __MOUNTAIN_H__
+#define __MOUNTAIN_H__
 
 #include "../../Entity.h"
 
-class House : public Entity{
+class Mountain : public Entity{
     public:
-        House(const sf::Vector3f& position);
+        Mountain(const sf::Vector3f& position);
 
         void update() override;
         TypeEntity getType() const override;
