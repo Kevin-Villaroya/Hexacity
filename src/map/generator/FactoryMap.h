@@ -9,16 +9,20 @@ public:
     static std::shared_ptr<Map> generateMap(size_t width, size_t height);
 private:
     static void generateSea(std::shared_ptr<Map> map);
+
     static void generateRivers(std::shared_ptr<Map> map);
+    static sf::Vector2f getPositionSource(std::shared_ptr<Map> map);
+    static void generateRiver(std::shared_ptr<Map> map, sf::Vector2f positionSource);
+    static bool closeToSea(std::shared_ptr<Map> map, sf::Vector2f position);
+    static sf::Vector2f getNextRiverCasePosition(std::shared_ptr<Map> map, sf::Vector2f position, sf::Vector2f movement);
+    static sf::Vector2f getRandomMovement();
+
     static void generateLakes(std::shared_ptr<Map> map);
 
     static void generateMountainRanges(std::shared_ptr<Map> map);
     static void generateForest(std::shared_ptr<Map> map);
 
     static void generateCities(std::shared_ptr<Map> map);
-
-    static sf::Vector2f getPositionSource(std::shared_ptr<Map> map);
-    static void generateRiver(std::shared_ptr<Map> map, sf::Vector2f positionSource);
 };
 
 #endif
