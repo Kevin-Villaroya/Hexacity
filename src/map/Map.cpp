@@ -19,7 +19,7 @@ Map::Map(unsigned int width, unsigned int lenght) : width(width), lenght(lenght)
 
 void Map::update(){
 	for(unsigned int x = 0; x < this->getWidth(); x++){
-		for(unsigned int y = 0; y < this->getLenght(); y++){
+		for(unsigned int y = 0; y < this->getHeight(); y++){
 			for(unsigned int z = 0; z < this->getColumn(x, y).size(); z++){
 				this->get(x, y, z).update();
 			}
@@ -101,7 +101,7 @@ unsigned int Map::getWidth() const{
 	return this->width;
 }
 
-unsigned int Map::getLenght() const{
+unsigned int Map::getHeight() const{
 	return this->lenght;
 }
 

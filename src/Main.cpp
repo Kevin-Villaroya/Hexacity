@@ -5,7 +5,7 @@
 #include <memory>
 
 int main(){
-	std::shared_ptr<Map> map = FactoryMap::generateMap(10, 10);
+	std::shared_ptr<Map> map = FactoryMap::generateMap(40, 40);
 	Engine game(map);
 
 	game.run();

@@ -26,7 +26,7 @@ class RenderingEngine{
 		void entranceAnimation();
 
 		void setCaseSpritePosition(sf::Sprite& sprite, const sf::Vector3<float>& position, unsigned int height);
-		void setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity);
+		void setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity, unsigned int height);
 
 		sf::Vector3<float> getCenterDrawableMap();
 		sf::Vector3<float> convertMapPositionToWindowPosition(const sf::Vector3<float>& position);

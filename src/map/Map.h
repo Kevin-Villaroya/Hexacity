@@ -34,7 +34,7 @@ class Map{
 		void setHeightBlock(uint x, uint y, uint height);
 
 		unsigned int getWidth() const;
-		unsigned int getLenght() const;
+		unsigned int getHeight() const;
 
 		unsigned int getDrawableWidth();
 		unsigned int getDrawableLenght();

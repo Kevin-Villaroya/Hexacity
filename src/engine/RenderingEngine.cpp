@@ -40,10 +40,10 @@ void RenderingEngine::drawMap(){
 void RenderingEngine::entranceAnimation(){
 	int framesDuration = 2;
 	auto animation = [](sf::Vector3<float>& position){ position.y -= 1; position.x -= 1;};
-	int globalOffset = fmax(this->map.get()->getWidth(), this->map.get()->getLenght());
+	int globalOffset = fmax(this->map->getWidth(), this->map->getHeight());
 
 	for(unsigned int i = 0; i < this->map.get()->getWidth(); i++){
-		for(unsigned int j = 0; j < this->map.get()->getLenght(); j++){
+		for(unsigned int j = 0; j < this->map.get()->getHeight(); j++){
 			for(unsigned int k = 0; k < this->map.get()->getColumn(i, j).size(); k++){
 				Block& block = this->map.get()->get(i, j, k);
 
@@ -89,11 +89,11 @@ std::list<sf::Sprite*> RenderingEngine::getMapDrawables(){
 	std::list<sf::Sprite*> blockDrawables;
 	std::list<sf::Sprite*> entityDrawables;
 
-	for(unsigned int i = 0; i < this->map.get()->getWidth() ; i++){
-		for(unsigned int j = 0; j < this->map.get()->getLenght(); j++){
+	for(unsigned int i = 0; i < this->map->getWidth() ; i++){
+		for(unsigned int j = 0; j < this->map->getHeight(); j++){
 			for(unsigned int k = 0; k < this->map.get()->getColumn(i, j).size(); k++){				
 
-				Block& currentCase = this->map.get()->get(i, j, k);
+				Block& currentCase = this->map->get(i, j, k);
 				sf::Sprite& blockSprite = currentCase.getSprite();
 
 				this->setCaseSpritePosition(blockSprite, currentCase.getPosition(), currentCase.getHeight());
@@ -104,7 +104,7 @@ std::list<sf::Sprite*> RenderingEngine::getMapDrawables(){
 					Entity& entity = currentCase.getEntity();
 					sf::Sprite& entitySprite = entity.getSprite();
 
-					this->setEntitySpritePosition(blockSprite, entity);
+					this->setEntitySpritePosition(blockSprite, entity, currentCase.getHeight());
 
 					entityDrawables.push_back(&entitySprite);
 				}
@@ -119,12 +119,12 @@ std::list<sf::Sprite*> RenderingEngine::getMapDrawables(){
 }
 
 sf::Vector3<float> RenderingEngine::getCenterDrawableMap(){
-	sf::Vector3<float> centerMap = sf::Vector3<float>(this->map.get()->getWidth() / 2, this->map.get()->getLenght() / 2, 0);
+	sf::Vector3<float> centerMap = sf::Vector3<float>(this->map->getWidth() / 2, this->map->getHeight() / 2, 0);
 
 	return centerMap;
 }
 
-void RenderingEngine::setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity){
+void RenderingEngine::setEntitySpritePosition(sf::Sprite& blockSprite, Entity& entity, unsigned int height){
 	sf::Vector3<float> isometricPosition = this->convertMapPositionToWindowPosition(entity.getPosition());
 	sf::Sprite& entitySprite = entity.getSprite();
 
@@ -132,6 +132,7 @@ void RenderingEngine::setEntitySpritePosition(sf::Sprite& blockSprite, Entity& e
 	isometricPosition.y -= (isometricPosition.z * entitySprite.getTexture()->getSize().y / 2);
 
 	isometricPosition.y -= entity.getSize().y * entitySprite.getTexture()->getSize().y / 8;
+	isometricPosition.y -= height *  entitySprite.getTexture()->getSize().y / 2;
 
 	entitySprite.setPosition(isometricPosition.x, isometricPosition.y);
 }

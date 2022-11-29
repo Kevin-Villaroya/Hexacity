@@ -4,8 +4,8 @@
 GameEngine::GameEngine(std::shared_ptr<Map>& map, int ticksBeforeEachUpdate) : map(map), ticksBeforeEachUpdate(ticksBeforeEachUpdate), ticksBeforeLastUpdate(0) {}
 
 void GameEngine::initMap(){
-	uint width = this->map.get()->getWidth();
-	uint height = this->map.get()->getLenght();
+	uint width = this->map->getWidth();
+	uint height = this->map->getHeight();
 
 	for(unsigned int i = 0; i < width; i++){
 		for(unsigned int j = 0; j < height; j++){
@@ -42,7 +42,7 @@ bool GameEngine::tick(){
 }
 
 bool GameEngine::update(){
-	this->map.get()->update();
+	this->map->update();
 
 	return true;
 }
