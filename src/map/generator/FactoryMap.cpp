@@ -122,12 +122,12 @@ sf::Vector2f FactoryMap::getNextRiverCasePosition(std::shared_ptr<Map> map, sf::
     //50% not change - 20% a bit to the left - 20% a bit to the right - 5% a lot on the left - 5% a lot on the right
     int movementEvolution = std::rand() % 100;
 
-    if(movementEvolution <= 100){
+    if(movementEvolution <= 0){
         //change nothing
     }else if(movementEvolution <= 100){
         //on left
-        movement.x = movement.x * std::cos(90) - movement.y * std::sin(90);
-        movement.y = movement.x * std::sin(90) + movement.y * std::cos(90);
+        movement.x = -movement.y;
+        movement.y = movement.x;
     }else if(movementEvolution <= 90){
         movement.x = movement.x * std::cos(-90) - movement.y * std::sin(-90);
         movement.y = movement.x * std::sin(-90) + movement.y * std::cos(-90);
@@ -154,7 +154,10 @@ sf::Vector2f FactoryMap::getRandomMovement(){
     do{
         x = -1 + std::rand() % 2;
         y = -1 + std::rand() % 2;
-    }while((x == 0 && y == 0) && x == y);
+    }while(x == 0 && y == 0);
+
+    x = 0;
+    y = 1;
 
     return sf::Vector2f(x ,y);
 }
