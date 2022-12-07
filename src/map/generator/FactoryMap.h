@@ -14,7 +14,7 @@ private:
     static sf::Vector2f getPositionSource(std::shared_ptr<Map> map);
     static void generateRiver(std::shared_ptr<Map> map, sf::Vector2f positionSource);
     static bool closeToSea(std::shared_ptr<Map> map, sf::Vector2f position);
-    static sf::Vector2f getNextRiverCasePosition(std::shared_ptr<Map> map, sf::Vector2f position, sf::Vector2f movement);
+    static sf::Vector2f getNextRiverCasePosition(std::shared_ptr<Map> map, sf::Vector2f position, sf::Vector2f& movement);
     static sf::Vector2f getRandomMovement();
 
     static void generateLakes(std::shared_ptr<Map> map);
